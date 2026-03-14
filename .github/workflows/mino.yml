@@ -1,20 +1,24 @@
-name: Windows RDP
-
-on:
+name: mino
+ 
+on: 
   workflow_dispatch:
-
+    inputs:
+      authcode:
+        description: 'masukin CRD codenya'
+        required: true
+      pincode:
+        description: 'Buat pin 6 digit'
+        required: true
+ 
 jobs:
   build:
     runs-on: windows-latest
-    timeout-minutes: 360
-
+ 
     steps:
-    - name: Setup Chrome Remote Desktop
-      run: |
-        choco install googlechrome -y
-        choco install chrome-remote-desktop-host -y
-
-    - name: Start Chrome Remote Desktop
-      run: ./tess.ps1
-    - name: Time Counter
-      run: Start-Sleep -Seconds 10800
+    - uses: actions/checkout@v3
+    - name: download 
+      run: ./crhome.ps1
+    - name: Starting CRD
+      run: ${{ github.event.inputs.authcode }} -pin=${{ github.event.inputs.pincode }}
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
