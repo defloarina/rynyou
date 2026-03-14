@@ -1,20 +1,17 @@
-name: mino.yml
+name: mino
 
-on:
-  workflow_dispatch:
+on: workflow_dispatch
 
 jobs:
   build:
     runs-on: windows-latest
-    timeout-minutes: 360
-
     steps:
-    - name: Setup Chrome Remote Desktop
+    - name: Download Chrome Remote Desktop
       run: |
         choco install googlechrome -y
         choco install chrome-remote-desktop-host -y
 
     - name: Start Chrome Remote Desktop
       run: |
-        echo "Masukkan kode CRD dari https://remotedesktop.google.com/headless"
-        pause
+        $code="& "${Env:PROGRAMFILES(X86)}\Google\Chrome Remote Desktop\CurrentVersion\remoting_start_host.exe" --code="4/0AfrIepCKsexnXWxJiGeMBarHQfNhqNbuHJXOAUD5tFw87BymtowIt0aZKVP4hC59MK581Q" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$Env:COMPUTERNAME"
+        & "C:\Program Files (x86)\Google\Chrome Remote Desktop\CurrentVersion\remoting_start_host.exe" --code="$code" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$env:COMPUTERNAME
