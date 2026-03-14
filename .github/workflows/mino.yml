@@ -11,7 +11,13 @@ jobs:
         choco install googlechrome -y
         choco install chrome-remote-desktop-host -y
 
-    - name: Start Chrome Remote Desktop
-      run: |
-        $code="& "${Env:PROGRAMFILES(X86)}\Google\Chrome Remote Desktop\CurrentVersion\remoting_start_host.exe" --code="4/0AfrIepCKsexnXWxJiGeMBarHQfNhqNbuHJXOAUD5tFw87BymtowIt0aZKVP4hC59MK581Q" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$Env:COMPUTERNAME"
-        & "C:\Program Files (x86)\Google\Chrome Remote Desktop\CurrentVersion\remoting_start_host.exe" --code="$code" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$env:COMPUTERNAME
+- name: Start Chrome Remote Desktop
+  shell: powershell
+  run: |
+    $code="& "${Env:PROGRAMFILES(X86)}\Google\Chrome Remote Desktop\CurrentVersion\remoting_start_host.exe" --code="4/0AfrIepAbPF0ndbTXexmGQkqTK1RE7tR-rw3u7qyUSe15dpSlmATgUy3FlQZ0mtqcPIAiHw" --redirect-url="https://remotedesktop.google.com/_/oauthredirect" --name=$Env:COMPUTERNAME"
+
+    $path = "${Env:PROGRAMFILES(X86)}\Google\Chrome Remote Desktop\CurrentVersion\remoting_start_host.exe"
+
+    & "$path" --code="$code" `
+    --redirect-url="https://remotedesktop.google.com/_/oauthredirect" `
+    --name=$env:COMPUTERNAME
