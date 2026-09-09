@@ -2,23 +2,24 @@ name: mino
  
 on: 
   workflow_dispatch:
-    inputs:
-      authcode:
-        description: 'masukin CRD codenya'
-        required: true
-      pincode:
-        description: 'Buat pin 6 digit'
-        required: true
  
 jobs:
-  build:
-    runs-on: windows-latest
+  buildup:
+    runs-on: windows-2022
  
     steps:
     - uses: actions/checkout@v3
-    - name: download 
-      run: ./crhome.ps1
-    - name: Starting CRD
-      run: ${{ github.event.inputs.authcode }} -pin=${{ github.event.inputs.pincode }}
+    - name: download software
+      run: ./manis.ps1
+    - name: proses Setup1
+      run: cmd /c setup1.bat
+    - name: proses setup2
+      run: cmd /c setup2.bat
+    - name: id conect
+      run: cmd /c show.bat
+    - name: pasword 
+      run: cmd /c glow.bat
+    - name: Time Counter
+      run: Start-Sleep -Seconds 10800
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
